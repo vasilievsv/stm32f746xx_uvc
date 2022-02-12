@@ -72,7 +72,8 @@ uint8_t *Camera_GetFrame(uint32_t *pFrameLength)
 {
 	uint32_t _frame_time = 0;
 	uint32_t _tmp = *DWT_CYCCNT;
-
+	static uint16_t color_cnt;
+	
 	pFrameLength[0] = UVC_VIDEO_WIDTH*UVC_VIDEO_HEIGHT*3;
 	
 	
@@ -80,11 +81,23 @@ uint8_t *Camera_GetFrame(uint32_t *pFrameLength)
 	{
 			for(int j = 0; j<UVC_VIDEO_HEIGHT;j++)
 			{
-				pic[i][j].r = 0xFF;
-				pic[i][j].g = 0xFF;
-				pic[i][j].b = 0xFF;
+				if(j%2)
+				{
+					pic[i][j].r = 0xFF;
+					pic[i][j].g = 0xFF;
+					pic[i][j].b = 0xFF;
+				}
 			}
 	}
+	color_cnt++;
+
+	pic[0][0].r = 0x55;
+	pic[0][0].g = 0x42;
+	pic[0][0].b = 0x73;
+
+	
+	*(uint16_t*)(&pic[0][0]) = color_cnt;
+	//*(uint8_t*)(&(pic[0][0].b)) = 0x55;
 	
 	_frame_time = *DWT_CYCCNT-_tmp;
 
