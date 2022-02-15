@@ -152,13 +152,20 @@ uint8_t USBD_UVC_CfgFSDesc[USB_UVC_CONFIG_DESC_TOTAL_SIZE]  __ALIGN_END =
     
 	/* Giud Format RGB888  GUID: E436EB7D-524F-11CE-9F53-0020AF0BA770 */
 
-    0x7D, 0xEB, 0x36, 0xE4,             	
+    //0x7D, 0xEB, 0x36, 0xE4,             	
+    //0x4F, 0x52, 0xCE, 0x11,
+    //0x9F, 0x53, 0x00, 0x20,
+    //0xAF, 0x0B, 0xA7, 0x70,
+    //0x18,                                                       /* bBitsPerPixel:: 24 */
+		
+	/* Giud Format RGB888  GUID: E436EB7D-524F-11CE-9F53-0020AF0BA770 */
+
+    0x7B, 0xEB, 0x36, 0xE4,             	
     0x4F, 0x52, 0xCE, 0x11,
     0x9F, 0x53, 0x00, 0x20,
     0xAF, 0x0B, 0xA7, 0x70,
-    0x18,                                                       /* bBitsPerPixel:: 24 */
-		
-	
+    0x10,                                                       /* bBitsPerPixel:: 16 */
+
   0x01,                                                         /* bDefaultFrameIndex: Default frame index is 1 */
   0x00,                                                         /* bAspectRatioX */
   0x00,                                                         /* bAspectRatioY */
@@ -406,10 +413,10 @@ uint8_t  USBD_UVC_DataIn (USBD_HandleTypeDef *pdev,
 	  }
 	  else
 	  {
-		  huvc->current_frame = NULL;
-		  huvc->current_frame_length = UVC_VIDEO_WIDTH * UVC_VIDEO_HEIGHT * 3;
-		  huvc->current_frame_sent = 0;
-		  huvc->state = UVC_STATE_BUSY;
+            huvc->current_frame           = NULL;
+            huvc->current_frame_length    = UVC_VIDEO_MAX_FRAME_BUF_SIZE;
+            huvc->current_frame_sent      = 0;
+            huvc->state                   = UVC_STATE_BUSY;
 	  }
   }
 

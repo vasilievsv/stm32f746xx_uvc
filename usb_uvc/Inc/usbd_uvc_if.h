@@ -11,11 +11,19 @@
 
 extern USBD_UVC_CameraTypeDef USBD_UVC_Camera;
 
+typedef struct 
+{
+	uint8_t r;
+	uint8_t g;
+	uint8_t b;
 
+}pixel888_t;
 
-#define CAMERA_BUFFER_STATE_FREE 1
-#define CAMERA_BUFFER_STATE_LOCKED_BY_DMA 2
-#define CAMERA_BUFFER_STATE_READY 3
-#define CAMERA_BUFFER_STATE_LOCKED_BY_UVC 4
+extern uint16_t pic[UVC_VIDEO_WIDTH][UVC_VIDEO_HEIGHT];
+
+#define CAMERA_BUFFER_STATE_FREE            1
+#define CAMERA_BUFFER_STATE_LOCKED_BY_DMA   2
+#define CAMERA_BUFFER_STATE_READY           3
+#define CAMERA_BUFFER_STATE_LOCKED_BY_UVC   4
 
 #endif /* INC_USBD_CAMERA_H_ */

@@ -14,17 +14,8 @@ volatile unsigned int *DWT_LAR      = (volatile unsigned int *)0xE0001FB0;
 volatile unsigned int *SCB_DEMCR    = (volatile unsigned int *)0xE000EDFC;
 
 
-typedef struct 
-{
-	uint8_t r;
-	uint8_t g;
-	uint8_t b;
-}pixel888_t;
 
-
-
-
-pixel888_t pic[UVC_VIDEO_WIDTH][UVC_VIDEO_HEIGHT];
+uint16_t pic[UVC_VIDEO_WIDTH][UVC_VIDEO_HEIGHT];
 
 void Camera_On(void);
 void Camera_Off(void);
@@ -70,37 +61,27 @@ void Camera_Loop(void)
 
 uint8_t *Camera_GetFrame(uint32_t *pFrameLength)
 {
-	uint32_t _frame_time = 0;
-	uint32_t _tmp = *DWT_CYCCNT;
-	static uint16_t color_cnt;
-	
-	pFrameLength[0] = UVC_VIDEO_WIDTH*UVC_VIDEO_HEIGHT*3;
-	
-	
-	for(int i = 0; i<UVC_VIDEO_WIDTH;i++)
-	{
-			for(int j = 0; j<UVC_VIDEO_HEIGHT;j++)
-			{
-				if(j%2)
-				{
-					pic[i][j].r = 0xFF;
-					pic[i][j].g = 0xFF;
-					pic[i][j].b = 0xFF;
-				}
-			}
-	}
-	color_cnt++;
+    uint32_t _frame_time = 0;
+    uint32_t _tmp = *DWT_CYCCNT;
+    static uint16_t color_cnt;
 
-	pic[0][0].r = 0x55;
-	pic[0][0].g = 0x42;
-	pic[0][0].b = 0x73;
+    pFrameLength[0] = UVC_VIDEO_WIDTH*UVC_VIDEO_HEIGHT*2;
 
-	
-	*(uint16_t*)(&pic[0][0]) = color_cnt;
-	//*(uint8_t*)(&(pic[0][0].b)) = 0x55;
-	
-	_frame_time = *DWT_CYCCNT-_tmp;
 
-	return (uint8_t *)&pic;
+    for(int i = 0; i<UVC_VIDEO_WIDTH;i++)
+    {
+        for(int j = 0; j<UVC_VIDEO_HEIGHT;j++)
+        {
+            if(j%2)
+            {
+                pic[i][j] = 0xFFFF;
+            }
+        }
+    }
+    color_cnt++;
+
+    _frame_time = *DWT_CYCCNT-_tmp;
+
+    return (uint8_t *)&pic;
 }
 
