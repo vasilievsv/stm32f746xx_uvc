@@ -22,6 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "usbd_uvc_if.h"
 
 /* USER CODE END Includes */
 
@@ -100,11 +101,16 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  char *testDataToSend = "test \r\n";
+
+	
+	int count = 0;
 	while (1)
   {
-		//HAL_Delay(100);
-		//CDC_Transmit_HS((uint8_t *)testDataToSend, sizeof("test \r\n"));
+		count++;
+	
+    Camera_FillRect(0x0000,0, 0, 447, 319);
+    Camera_FillRect(0xFFFFFFFF,count%300, 0, 100, 100);
+		
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
