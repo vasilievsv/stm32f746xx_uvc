@@ -143,23 +143,20 @@ uint8_t USBD_UVC_CfgFSDesc[USB_UVC_CONFIG_DESC_TOTAL_SIZE]  __ALIGN_END =
   1,                                                            /* bNumFrameDescriptors */
 	
     /* Giud Format YUY2 {32595559-0000-0010-8000-00AA00389B71} */
-
     //0x59,0x55,0x59,0x32,                                        
     //0x00,0x00,
     //0x10,0x00,
     //0x80,0x00,0x00,0xAA,0x00,0x38,0x9B,0x71,
-    //16,                                                       /* bBitsPerPixel: 16 for yuy2 */
+    //0x10,                                                       /* bBitsPerPixel: 16 for yuy2 */
     
-	/* Giud Format RGB888  GUID: E436EB7D-524F-11CE-9F53-0020AF0BA770 */
-
+    /* Giud Format RGB888  GUID: E436EB7D-524F-11CE-9F53-0020AF0BA770 */
     //0x7D, 0xEB, 0x36, 0xE4,             	
     //0x4F, 0x52, 0xCE, 0x11,
     //0x9F, 0x53, 0x00, 0x20,
     //0xAF, 0x0B, 0xA7, 0x70,
     //0x18,                                                       /* bBitsPerPixel:: 24 */
 		
-	/* Giud Format RGB888  GUID: E436EB7D-524F-11CE-9F53-0020AF0BA770 */
-
+	/* Giud Format RGB565  GUID:e436eb7b-524f-11ce-9f53-0020af0ba770 */
     0x7B, 0xEB, 0x36, 0xE4,             	
     0x4F, 0x52, 0xCE, 0x11,
     0x9F, 0x53, 0x00, 0x20,
